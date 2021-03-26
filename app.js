@@ -11,6 +11,8 @@ const mongoose = require("mongoose");
 const app = express();
 const cors = require("cors");
 
+
+
 /**
  * Middlewares
  */
@@ -45,6 +47,10 @@ app.use(function (req, res, next) {
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
 const recipeRouter = require("./routes/recipe");
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8a80b1be138091d708400ae36268633832fe1bc6
 
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
