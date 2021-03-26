@@ -43,14 +43,18 @@ app.use(function (req, res, next) {
  */
 
 const authRouter = require("./routes/auth");
+const userRouter = require("./routes/user");
+const recipeRouter = require("./routes/recipe");
 
 app.use("/api/auth", authRouter);
+app.use("/api/user", userRouter);
+app.use("/api/recipe", recipeRouter);
 
 // 404 Middleware
 app.use((req, res, next) => {
   const error = new Error("Ressource not found.");
   error.status = 404;
-  next(err);
+  next(error);
 });
 
 // Error handler middleware
@@ -68,4 +72,14 @@ app.use((err, req, res, next) => {
   }
 });
 
+function exposeLoginStatus(req, res, next) {
+  if (!req.session.currentUser) {
+    res.locals.currentUser = undefined;
+    res.locals.isLoggedIn = false;
+  } else {
+    res.locals.currentUser = req.session.currentUser;
+    res.locals.isLoggedIn = true;
+    res.locals.isAdmin = req.session.currentUser.role === "admin";
+  }
+}
 module.exports = app;
