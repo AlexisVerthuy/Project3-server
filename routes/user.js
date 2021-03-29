@@ -27,7 +27,7 @@ router.get("/edit", function (req, res, next) {
   User.find({ _id: currentUser })
     .select("-password")
     .then((user) => {
-      console.log("my user", user);
+      //console.log("my user", user);
       res.status(200).json(user);
       //   res.render("user/edituser");
     })
@@ -36,10 +36,12 @@ router.get("/edit", function (req, res, next) {
     });
 });
 
+//post edit the user
+
 router.post("/edit", uploader.single("avatar"), async (req, res, next) => {
   const { firstName, lastName, email, avatar } = req.body;
   const userToUpdate = req.body;
-  console.log("my user toupdate", userToUpdate);
+  //console.log("my user toupdate", userToUpdate);
   if (req.file) {
     console.log("if");
     userToUpdate.avatar = req.file.path;
@@ -49,16 +51,31 @@ router.post("/edit", uploader.single("avatar"), async (req, res, next) => {
   }
   try {
     const foundUser = await User.findByIdAndUpdate(
-      req.session.currentUser._id,
+      req.session.currentUser,
       userToUpdate,
       { new: true }
     ).select("-password");
     console.log(foundUser);
     req.session.currentUser = foundUser;
-    res.redirect("profile");
+    res.status(200).json(foundUser);
+    //res.redirect("profile");
   } catch (err) {
     console.log(err);
     next(err);
+  }
+});
+
+/* GET delete profile page : Delete a user profile page and redirect to home page */
+
+router.get("/delete", async function (req, res, next) {
+  try {
+    await User.findByIdAndDelete(req.session.currentUser);
+    req.session.destroy();
+    res.sendStatus(204);
+    res.redirect("/");
+  } catch (dbError) {
+    //console.log("this is my error", dbEerr);
+    next(dbError);
   }
 });
 

@@ -8,7 +8,7 @@ router.get("/", (req, res, next) => {
   Recipe.find()
     .then((recipes) => {
       res.json(recipes);
-      console.log(recipes);
+      //console.log(recipes);
     })
     .catch((err) => next(err));
 });
@@ -20,7 +20,7 @@ router.get("/:id", (req, res, next) => {
 
     .then((oneRecipe) => {
       res.status(200).json(oneRecipe);
-      console.log("this is my response", oneRecipe);
+      //console.log("this is my response", oneRecipe);
     })
 
     .catch((dbError) => {
