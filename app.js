@@ -11,8 +11,6 @@ const mongoose = require("mongoose");
 const app = express();
 const cors = require("cors");
 
-
-
 /**
  * Middlewares
  */
@@ -74,14 +72,14 @@ app.use((err, req, res, next) => {
   }
 });
 
-function exposeLoginStatus(req, res, next) {
-  if (!req.session.currentUser) {
-    res.locals.currentUser = undefined;
-    res.locals.isLoggedIn = false;
-  } else {
-    res.locals.currentUser = req.session.currentUser;
-    res.locals.isLoggedIn = true;
-    res.locals.isAdmin = req.session.currentUser.role === "admin";
-  }
-}
+// function exposeLoginStatus(req, res, next) {
+//   if (!req.session.currentUser) {
+//     res.locals.currentUser = undefined;
+//     res.locals.isLoggedIn = false;
+//   } else {
+//     res.locals.currentUser = req.session.currentUser;
+//     res.locals.isLoggedIn = true;
+//     res.locals.isAdmin = req.session.currentUser.role === "admin";
+//   }
+//}
 module.exports = app;

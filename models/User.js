@@ -9,11 +9,11 @@ const userSchema = new Schema({
   avatar: { type: String },
   recipes: {
     type: Schema.Types.ObjectId,
-    ref: "recipe"
+    ref: "recipe",
   },
   shoppingList: {
     type: Schema.Types.ObjectId,
-    ref: "Recipe"
+    ref: "Recipe",
   },
 
   weekMeal: {
@@ -24,8 +24,7 @@ const userSchema = new Schema({
     friday: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],
     saturday: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],
     sunday: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],
-  }
-
+  },
 });
 
 const User = mongoose.model("User", userSchema);
