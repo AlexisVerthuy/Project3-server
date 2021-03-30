@@ -46,10 +46,10 @@ router.post("/create", uploader.single("picture"), (req, res, next) => {
   let ingredients = [{ quantity, unit, value }];
 
   console.log("show me this", req.body);
-  let picture = req.file.path;
-  console.log("show me this path", req.file.path);
+  // let picture = req.file.path;
+  // console.log("show me this path", req.file.path);
   const newRecipe = {
-    picture,
+    // picture,
     title,
     serving,
     level,
@@ -71,7 +71,7 @@ router.post("/create", uploader.single("picture"), (req, res, next) => {
     });
 });
 
-router.post("/edit/:id", uploader.single("picture"), async (req, res, next) => {
+router.patch("/edit/:id", uploader.single("picture"), async (req, res, next) => {
   const {
     title,
     serving,
@@ -92,7 +92,7 @@ router.post("/edit/:id", uploader.single("picture"), async (req, res, next) => {
   }
   try {
     await Recipe.findByIdAndUpdate(req.params.id, recipeToUpdate);
-    res.status(201).json(user);
+    res.status(201).json(recipeToUpdate);
     res.redirect("/recipe");
   } catch (err) {
     next(err);
