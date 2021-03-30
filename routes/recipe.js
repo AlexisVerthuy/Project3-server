@@ -99,10 +99,11 @@ router.post("/edit/:id", uploader.single("picture"), async (req, res, next) => {
   }
 });
 
-router.get("/delete/:id", async (req, res, next) => {
+router.delete("/delete/:id", async (req, res, next) => {
   try {
     await Recipe.findByIdAndDelete(req.params.id);
-    res.redirect("/recipe");
+
+    res.send("ok");
   } catch (err) {
     next(err);
   }
