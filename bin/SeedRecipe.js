@@ -911,6 +911,96 @@ const recipes = [
     creator: "By Jan Bittner",
     type: ["Breakfast", "Snack"],
   },
+  {
+    title: "One Pot Thai-Style Rice Noodles",
+    serving: 4,
+    picture:
+      "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F2458255.jpg&w=560&h=375&c=sc&poi=face&q=85",
+    level: "Easy",
+    duration: 15,
+    ingredients: [
+      {
+        quantity: 2,
+        unit: "others",
+        value: "cornstarch",
+      },
+      {
+        quantity: 1,
+        unit: "others",
+        value: "water",
+      },
+      {
+        quantity: 6,
+        unit: "cups",
+        value: "chicken broth",
+      },
+      {
+        quantity: 2.5,
+        unit: "others",
+        value: "soy sauce",
+      },
+      {
+        quantity: 1,
+        unit: "others",
+        value: "fish sauce",
+      },
+      {
+        quantity: 1,
+        unit: "others",
+        value: "rice vinegar",
+      },
+      {
+        quantity: 2,
+        unit: "others",
+        value: "chicken breasts",
+      },
+    ],
+    instructions: [
+      "Step 1: Stir cornstarch and water together in a small bowl until smooth. Pour chicken broth into a large pot and stir cornstarch mixture, soy sauce, fish sauce, rice vinegar, chile-garlic sauce, vegetable oil, ginger, garlic, and coriander into broth. Cover and bring to a boil.", "Step 2: Place rice noodles in the boiling sauce, reduce heat to medium, and simmer until noodles are tender, 5 to 10 minutes. Stir zucchini, red bell pepper, and chicken into sauce. Bring back to a boil, cover, and simmer until vegetables are just become tender, about 5 more minutes.", "Step 3: Remove from heat and let stand, covered, for 5 minutes to thicken. Serve garnished with crushed peanuts and cilantro."
+    ],
+    creator: "Kniterly",
+    type: ["Lunch", "Diner"],
+  },
+  {
+    title: "Five-Ingredient Red Curry Chicken",
+    serving: 6,
+    picture:
+      "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F3949345.jpg&w=560&h=560&c=sc&poi=face&q=85",
+    level: "Medium",
+    duration: 25,
+    ingredients: [
+      {
+        quantity: 2,
+        unit: "others",
+        value: "coconut oil",
+      },
+      {
+        quantity: 450,
+        unit: "grams",
+        value: "boneless chicken breast",
+      },
+      {
+        quantity: 400,
+        unit: "grams",
+        value: "cream of coconut ",
+      },
+      {
+        quantity: 300,
+        unit: "grams",
+        value: "red Thai curry sauce ",
+      },
+      {
+        quantity: 450,
+        unit: "grams",
+        value: "dried rice stick vermicelli noodles",
+      },
+    ],
+    instructions: [
+      "Step 1: Heat oil in a large skillet on high heat. Add chicken cubes; cook until browned, about 2 minutes per side. Reduce heat to medium-high and add coconut cream and curry sauce. Cook until chicken is no longer pink in the center and the juices run clear, about 5 minutes. An instant-read thermometer inserted into the center should read at least 165 degrees F (74 degrees C).", "Step 2: Fill a large pot with lightly salted water and bring to a rolling boil; stir in vermicelli pasta and return to a boil. Cook pasta uncovered, stirring occasionally, until the pasta is tender yet firm to the bite, 4 to 5 minutes. Drain.", "Step 3: Reduce skillet heat to simmer. Add the noodles and let simmer until flavors are absorbed, about 5 minutes. Divide chicken and noodles among individual serving bowls."
+    ],
+    creator: "Culinary Envy",
+    type: ["Lunch", "Diner"],
+  },
 ];
 
 Recipe.deleteMany()

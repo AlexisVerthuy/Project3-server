@@ -9,7 +9,7 @@ router.get("/profile", function (req, res, next) {
   // console.log(" my req. session in profile", req.session);
   const currentUser = req.session.currentUser;
   //console.log("my current user", currentUser);
-  User.find({ _id: currentUser })
+  User.findOne({ _id: currentUser })
     .select("-password")
     .then((user) => {
       console.log(user);
@@ -38,27 +38,27 @@ router.get("/edit", function (req, res, next) {
 
 //post edit the user
 
-router.post("/edit", uploader.single("avatar"), async (req, res, next) => {
-  const { firstName, lastName, email, avatar } = req.body;
+router.patch("/edit",/* uploader.single("avatar") ,*/ async (req, res, next) => {
+  const { firstName, LastName, email} = req.body;
   const userToUpdate = req.body;
   //console.log("my user toupdate", userToUpdate);
-  if (req.file) {
-    console.log("if");
-    userToUpdate.avatar = req.file.path;
-  } else {
-    console.log("else");
-    delete userToUpdate.avatar;
-  }
+  // if (req.file) {
+  //   console.log("if");
+  //   userToUpdate.avatar = req.file.path;
+  // } else {
+  //   console.log("else");
+  //   delete userToUpdate.avatar;
+  // }
   try {
-    const foundUser = await User.findByIdAndUpdate(
+    const updatedUser = await User.findByIdAndUpdate(
       req.session.currentUser,
       userToUpdate,
       { new: true }
     ).select("-password");
-    console.log(foundUser);
-    req.session.currentUser = foundUser;
-    res.status(200).json(foundUser);
-    //res.redirect("profile");
+    console.log(updatedUser);
+    req.session.currentUser = updatedUser;
+    res.status(200).json(updatedUser);
+    // res.redirect("/profile");
   } catch (err) {
     console.log(err);
     next(err);
