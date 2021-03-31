@@ -71,33 +71,37 @@ router.post("/create", uploader.single("picture"), (req, res, next) => {
     });
 });
 
-router.patch("/edit/:id", uploader.single("picture"), async (req, res, next) => {
-  const {
-    title,
-    serving,
-    level,
-    duration,
-    quantity,
-    unit,
-    value,
-    instructions,
-    creator,
-    type,
-  } = req.body;
-  const recipeToUpdate = req.body;
-  if (req.file) {
-    recipeToUpdate.picture = req.file.path;
-  } else {
-    delete recipeToUpdate.picture;
+router.patch(
+  "/edit/:id",
+  uploader.single("picture"),
+  async (req, res, next) => {
+    const {
+      title,
+      serving,
+      level,
+      duration,
+      quantity,
+      unit,
+      value,
+      instructions,
+      creator,
+      type,
+    } = req.body;
+    const recipeToUpdate = req.body;
+    if (req.file) {
+      recipeToUpdate.picture = req.file.path;
+    } else {
+      delete recipeToUpdate.picture;
+    }
+    try {
+      await Recipe.findByIdAndUpdate(req.params.id, recipeToUpdate);
+      res.status(201).json(recipeToUpdate);
+      res.redirect("/recipe");
+    } catch (err) {
+      next(err);
+    }
   }
-  try {
-    await Recipe.findByIdAndUpdate(req.params.id, recipeToUpdate);
-    res.status(201).json(recipeToUpdate);
-    res.redirect("/recipe");
-  } catch (err) {
-    next(err);
-  }
-});
+);
 
 router.delete("/delete/:id", async (req, res, next) => {
   try {

@@ -65,6 +65,27 @@ router.post("/edit", uploader.single("avatar"), async (req, res, next) => {
   }
 });
 
+//route for weekplan
+router.patch("/weekplan", async (req, res, next) => {
+  const { weekplan } = req.body;
+  const weekplanToUpdate = req.body;
+
+  try {
+    const updatedWeekPlanUser = await User.findByIdAndUpdate(
+      req.session.currentUser,
+      weekplanToUpdate,
+      { new: true }
+    ).select("-password");
+    console.log(updatedWeekPlanUser);
+    req.session.currentUser = updatedWeekPlanUser;
+    res.status(200).json(updatedWeekPlanUser);
+    //res.redirect("profile");
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+});
+
 /* GET delete profile page : Delete a user profile page and redirect to home page */
 
 router.get("/delete", async function (req, res, next) {

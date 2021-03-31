@@ -11,6 +11,7 @@ const userSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "recipe",
   },
+
   shoppingList: {
     type: Schema.Types.ObjectId,
     ref: "Recipe",
@@ -20,7 +21,7 @@ const userSchema = new Schema({
     monday: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],
     tuesday: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],
     wednesday: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],
-    Thursday: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],
+    thursday: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],
     friday: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],
     saturday: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],
     sunday: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],
