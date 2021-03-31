@@ -36,14 +36,11 @@ router.post("/create", uploader.single("picture"), (req, res, next) => {
     serving,
     level,
     duration,
-    quantity,
-    unit,
-    value,
+    ingredients, 
     instructions,
     creator,
     type,
   } = req.body;
-  let ingredients = [{ quantity, unit, value }];
 
   console.log("show me this", req.body);
   // let picture = req.file.path;
@@ -93,7 +90,7 @@ router.patch("/edit/:id", uploader.single("picture"), async (req, res, next) => 
   try {
     await Recipe.findByIdAndUpdate(req.params.id, recipeToUpdate);
     res.status(201).json(recipeToUpdate);
-    res.redirect("/recipe");
+    // res.redirect("/recipe");
   } catch (err) {
     next(err);
   }
