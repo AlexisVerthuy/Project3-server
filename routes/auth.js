@@ -29,7 +29,7 @@ router.post("/signin", (req, res, next) => {
 });
 
 router.post("/signup", uploader.single("avatar"), (req, res, next) => {
-  const { email, password, firstName, lastName } = req.body;
+  const { email, password, firstName, LastName, avatar } = req.body;
   console.log(req.body)
 
   User.findOne({ email })
@@ -39,7 +39,7 @@ router.post("/signup", uploader.single("avatar"), (req, res, next) => {
       }
 
       const hashedPassword = bcrypt.hashSync(password, salt);
-      const newUser = { email, lastName, firstName, password: hashedPassword };
+      const newUser = { email, LastName, firstName, avatar, password: hashedPassword };
 
       if (req.file) {
         newUser.avatar = req.file.path;
