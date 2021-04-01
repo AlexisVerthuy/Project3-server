@@ -76,16 +76,6 @@ app.use((err, req, res, next) => {
   }
 });
 
-// function exposeLoginStatus(req, res, next) {
-//   if (!req.session.currentUser) {
-//     res.locals.currentUser = undefined;
-//     res.locals.isLoggedIn = false;
-//   } else {
-//     res.locals.currentUser = req.session.currentUser;
-//     res.locals.isLoggedIn = true;
-//     res.locals.isAdmin = req.session.currentUser.role === "admin";
-//   }
-//}
 
 app.use((req, res, next) => {
   // If no routes match, send them the React HTML.
