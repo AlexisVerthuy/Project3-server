@@ -67,19 +67,39 @@ router.patch(
     }
   }
 );
+//route get for week plan
+router.get("/myweek", function (req, res, next) {
+  // console.log(" my req. session in profile", req.session);
+  const currentUser = req.session.currentUser;
+  //console.log("my current user", currentUser);
+  User.findOne({ _id: currentUser })
+    .populate({ path: "Recipe", select: "title" })
+    .select("-password")
+    .then((user) => {
+      console.log(user);
+      res.status(200).json(user);
+      //res.render("/profile");
+    })
+    .catch((dbError) => {
+      next(dbError);
+    });
+});
 
-//route for weekplan
+//route path for weekplan
 
-console.log("hello");
 router.patch("/weekplan", async (req, res, next) => {
-  console.log(req.body);
+  console.log("my req", req.body);
+  const day = req.body.day;
+  const recipeId = req.body.recipeId;
+  // get the day
+  // get the id
   console.log("my user", req.session.currentUser);
   // res.send("toto");
-
+  const weemMealDay = `weekMeal.${day}`;
   try {
     const updatedWeekPlanUser = await User.findByIdAndUpdate(
       req.session.currentUser,
-      { weekMeal: req.body },
+      { $push: { [weemMealDay]: [recipeId] } },
       { new: true }
     ).select("-password");
     console.log("this is the updated week", updatedWeekPlanUser);
