@@ -29,6 +29,10 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: true,
+    cookie:{
+      maxAge: 24* 60 * 60 * 1000 // 1 day
+      }
+      
   })
 );
 
@@ -49,6 +53,13 @@ const recipeRouter = require("./routes/recipe");
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/recipe", recipeRouter);
+
+if(process.env.NODE_ENV === "production") {
+  app.use((req, res, next) => {
+    // If no routes match, send them the React HTML.
+    res.sendFile(__dirname + "/public/index.html");
+  });
+}
 
 // 404 Middleware
 app.use((req, res, next) => {
@@ -72,14 +83,7 @@ app.use((err, req, res, next) => {
   }
 });
 
-// function exposeLoginStatus(req, res, next) {
-//   if (!req.session.currentUser) {
-//     res.locals.currentUser = undefined;
-//     res.locals.isLoggedIn = false;
-//   } else {
-//     res.locals.currentUser = req.session.currentUser;
-//     res.locals.isLoggedIn = true;
-//     res.locals.isAdmin = req.session.currentUser.role === "admin";
-//   }
-//}
+
+
+
 module.exports = app;
