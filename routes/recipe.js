@@ -7,6 +7,7 @@ const uploader = require("../config/cloudinary");
 router.get("/", (req, res, next) => {
   Recipe.find()
     .then((recipes) => {
+      console.log("ici,", recipes)
       res.json(recipes);
       //console.log(recipes);
     })
