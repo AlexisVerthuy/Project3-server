@@ -38,45 +38,51 @@ router.get("/edit", function (req, res, next) {
 
 //post edit the user
 
-router.patch("/edit",/* uploader.single("avatar") ,*/ async (req, res, next) => {
-  const { firstName, LastName, email} = req.body;
-  const userToUpdate = req.body;
-  //console.log("my user toupdate", userToUpdate);
-  // if (req.file) {
-  //   console.log("if");
-  //   userToUpdate.avatar = req.file.path;
-  // } else {
-  //   console.log("else");
-  //   delete userToUpdate.avatar;
-  // }
-  try {
-    const updatedUser = await User.findByIdAndUpdate(
-      req.session.currentUser,
-      userToUpdate,
-      { new: true }
-    ).select("-password");
-    console.log(updatedUser);
-    req.session.currentUser = updatedUser;
-    res.status(200).json(updatedUser);
-    // res.redirect("/profile");
-  } catch (err) {
-    console.log(err);
-    next(err);
+router.patch(
+  "/edit",
+  /* uploader.single("avatar") ,*/ async (req, res, next) => {
+    const { firstName, LastName, email } = req.body;
+    const userToUpdate = req.body;
+    //console.log("my user toupdate", userToUpdate);
+    // if (req.file) {
+    //   console.log("if");
+    //   userToUpdate.avatar = req.file.path;
+    // } else {
+    //   console.log("else");
+    //   delete userToUpdate.avatar;
+    // }
+    try {
+      const updatedUser = await User.findByIdAndUpdate(
+        req.session.currentUser,
+        userToUpdate,
+        { new: true }
+      ).select("-password");
+      console.log(updatedUser);
+      req.session.currentUser = updatedUser;
+      res.status(200).json(updatedUser);
+      // res.redirect("/profile");
+    } catch (err) {
+      console.log(err);
+      next(err);
+    }
   }
-});
+);
 
 //route for weekplan
+
+console.log("hello");
 router.patch("/weekplan", async (req, res, next) => {
-  const { weekplan } = req.body;
-  const weekplanToUpdate = req.body;
+  console.log(req.body);
+  console.log("my user", req.session.currentUser);
+  // res.send("toto");
 
   try {
     const updatedWeekPlanUser = await User.findByIdAndUpdate(
       req.session.currentUser,
-      weekplanToUpdate,
+      { weekMeal: req.body },
       { new: true }
     ).select("-password");
-    console.log(updatedWeekPlanUser);
+    console.log("this is the updated week", updatedWeekPlanUser);
     req.session.currentUser = updatedWeekPlanUser;
     res.status(200).json(updatedWeekPlanUser);
     //res.redirect("profile");
@@ -93,7 +99,7 @@ router.get("/delete", async function (req, res, next) {
     await User.findByIdAndDelete(req.session.currentUser);
     req.session.destroy();
     res.sendStatus(204);
-    res.redirect("/");
+    // res.redirect("/");
   } catch (dbError) {
     //console.log("this is my error", dbEerr);
     next(dbError);
