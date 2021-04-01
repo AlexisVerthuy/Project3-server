@@ -38,17 +38,18 @@ router.get("/edit", function (req, res, next) {
 
 //post edit the user
 
-router.patch("/edit",/* uploader.single("avatar") ,*/ async (req, res, next) => {
+router.patch("/edit", uploader.single("avatar"), async (req, res, next) => {
   const { firstName, LastName, email} = req.body;
   const userToUpdate = req.body;
-  //console.log("my user toupdate", userToUpdate);
-  // if (req.file) {
-  //   console.log("if");
-  //   userToUpdate.avatar = req.file.path;
-  // } else {
-  //   console.log("else");
-  //   delete userToUpdate.avatar;
-  // }
+  console.log("req", req.session.currentUser)
+  console.log("my user toupdate", userToUpdate);
+  if (req.file) {
+    console.log("if");
+    userToUpdate.avatar = req.file.path;
+  } else {
+    console.log("else");
+    delete userToUpdate.avatar;
+  }
   try {
     const updatedUser = await User.findByIdAndUpdate(
       req.session.currentUser,
@@ -67,16 +68,26 @@ router.patch("/edit",/* uploader.single("avatar") ,*/ async (req, res, next) => 
 
 /* GET delete profile page : Delete a user profile page and redirect to home page */
 
-router.get("/delete", async function (req, res, next) {
+router.delete("/profile/delete", async function (req, res, next) {
+  console.log("req session: ", req.session.cookie)
   try {
+    console.log("session current user", req.session.currentUser)
+
     await User.findByIdAndDelete(req.session.currentUser);
+
     req.session.destroy();
-    res.sendStatus(204);
-    res.redirect("/");
+    res.send("delete");
+    // res.redirect("/");
   } catch (dbError) {
     //console.log("this is my error", dbEerr);
     next(dbError);
   }
 });
+
+// router.delete("/toto", function (req, res, next ) {
+//   res.send("toto");
+
+// })
+
 
 module.exports = router;
