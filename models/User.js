@@ -14,7 +14,7 @@ const userSchema = new Schema({
 
   shoppingList: {
     type: Schema.Types.ObjectId,
-    ref: "Recipe",
+    ref: "recipe",
   },
 
   weekMeal: {

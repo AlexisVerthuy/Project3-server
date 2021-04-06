@@ -7,7 +7,7 @@ const uploader = require("../config/cloudinary");
 router.get("/", (req, res, next) => {
   Recipe.find()
     .then((recipes) => {
-      console.log("ici,", recipes)
+      console.log("ici,", recipes);
       res.json(recipes);
       //console.log(recipes);
     })
@@ -17,9 +17,20 @@ router.get("/", (req, res, next) => {
 //get list one recipe by id
 router.get("/:id", (req, res, next) => {
   //console.log("this is my response", req.params.id);
-  Recipe.findById(req.params.id)
+  Recipe.findById(req.params.id);
+  const currentUser = req.session.currentUser
 
     .then((oneRecipe) => {
+      //console.log("my req.param", req.params.id);
+
+      // User.find(currentUser)
+      //   .populate(
+      //     "weekMeal.monday weekMeal.tuesday weekMeal.wednesday weekMeal.thursday weekMeal.friday weekMeal.saturday weekMeal.sunday"
+      //   )
+      //   .then((user) => {
+      //     console.log("I am here");
+      //     res.json({ user: user, recipe: oneRecipe });
+      //   });
       res.status(200).json(oneRecipe);
       //console.log("this is my response", oneRecipe);
     })
@@ -37,7 +48,7 @@ router.post("/create", uploader.single("picture"), (req, res, next) => {
     serving,
     level,
     duration,
-    ingredients, 
+    ingredients,
     instructions,
     creator,
     type,
