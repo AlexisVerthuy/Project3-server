@@ -17,20 +17,11 @@ router.get("/", (req, res, next) => {
 //get list one recipe by id
 router.get("/:id", (req, res, next) => {
   //console.log("this is my response", req.params.id);
-  Recipe.findById(req.params.id);
-  const currentUser = req.session.currentUser
+  Recipe.findById(req.params.id)
 
     .then((oneRecipe) => {
       //console.log("my req.param", req.params.id);
 
-      // User.find(currentUser)
-      //   .populate(
-      //     "weekMeal.monday weekMeal.tuesday weekMeal.wednesday weekMeal.thursday weekMeal.friday weekMeal.saturday weekMeal.sunday"
-      //   )
-      //   .then((user) => {
-      //     console.log("I am here");
-      //     res.json({ user: user, recipe: oneRecipe });
-      //   });
       res.status(200).json(oneRecipe);
       //console.log("this is my response", oneRecipe);
     })
