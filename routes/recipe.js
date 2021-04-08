@@ -27,6 +27,7 @@ router.get("/:id", (req, res, next) => {
     })
 
     .catch((dbError) => {
+      console.log(dbError)
       res.status(500).json(dbError);
     });
 });
